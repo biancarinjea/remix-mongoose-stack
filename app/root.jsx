@@ -8,12 +8,17 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import styles from "~/tailwind.css";
-
+import globalStylesUrl from "~/styles/global.css";
+import logo from "~/assets/logo.png";
 export const links = () => [
   {
     rel: "stylesheet",
     href: styles,
   },
+  {
+    rel: "stylesheet",
+    href: globalStylesUrl,
+  }
 ];
 
 export function meta() {
@@ -32,14 +37,17 @@ export default function App() {
         <Links />
       </head>
       <body className="bg-slate-100 text-slate-800 font-sans p-4">
-        <header className="pb-3 mb-4 border-b-2">
-          <Link to="/" className="hover:underline text-blue-600">
-            Home
+        <div className="mb-4 pb-4 border-b flex justify-between">
+            <img src={logo} alt="logo"></img>
+            <div>
+            <Link to="/register" className="register">
+            Register
           </Link>
-          <Link to="/books/new" className="ml-3 hover:underline text-blue-600">
-            New book
+          <Link to="/login" className="login">
+            Sign In
           </Link>
-        </header>
+            </div>
+          </div>
         <Outlet />
         <ScrollRestoration />
         <Scripts />
