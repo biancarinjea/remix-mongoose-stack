@@ -108,3 +108,36 @@ font-size: 16px;
 margin-left:auto;
 
 }
+.profileLayout{
+border-radius: 5%;
+width:40%;
+padding: 10px;
+margin: 5% auto;
+background-color: #969FFF;
+}
+.btn-group button {
+color: white; /* White text */
+ /* Some padding */
+cursor: pointer; /* Pointer/hand icon */
+float: right; /* Float the buttons side by side */
+}
+.cardProfile{
+border-radius: 15px;
+margin-left: 1%;
+margin-top: 5%;
+background-color: #9F97D6;
+width: 60%;
+}
+.description{
+float: right;
+}
+.vl {
+margin-top: 2%;
+border-left: 1px solid white;
+}
+.profilePicture {
+width: 100px;
+height: 100px;
+border-radius: 50%;
+float: right;
+}

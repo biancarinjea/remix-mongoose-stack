@@ -1,14 +1,6 @@
-import { useLoaderData, Link } from "@remix-run/react";
-import connectDb from "~/db/connectDb.server.js";
+import { redirect } from "@remix-run/node";
 
 
-export default function Index() {
-  const books = useLoaderData();
-
-  return (
-    <div>
-      
-    </div>
-  );
+export  function loader() {
+  return redirect("/search");
 }
-

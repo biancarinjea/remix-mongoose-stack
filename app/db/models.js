@@ -3,45 +3,6 @@ const validator = require('validator');
 
 const { Schema } = mongoose;
 
-const snippetSchema = new Schema({
-  title: {
-    type: String,
-    required: [true, "Please insert a title"],
-    minLength: [3, "That's too short"],
-  },
-  language: {
-    type: String,
-    required: [true, "Please insert a code language"],
-  },
-  snippet: {
-    type: String,
-    required: [true, "Please insert a snippet"],
-    minLength: [3, "That's too short"],
-  },
-  description: {
-    type: String,
-    required: [true, "Please insert a description"],
-    minLength: [3, "That's too short"],
-  },
-
-  favourite: {
-    type: Boolean,
-  },
-
-  updatedAt: {
-    type: Date, 
-  },
-
-  createdAt: {
-    type: Date,
-  },
-  userId: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-  },
-},
-{ timestamps: true }
-);
 const userSchema = new Schema(
   {
     username: {
@@ -68,9 +29,26 @@ const userSchema = new Schema(
 );
 const profileSchema = new Schema(
   {
+    profilePicture:{
+      type:String,
+      required: [true,"Please insert profile image"]
+    },
+    fullname:{
+      type:String,
+      required: [true,"Please insert name"]
+    },
+    age:{
+      type:Number,
+      required: [true,"Please insert age"]
+    },
+    location:{
+      type:String,
+      required: [true,"Please insert location"]
+    },
     description: {
       type: String,
-      required: [true,"Please insert a description"]
+      required: [true,"Please insert a description"],
+      maxLength:255
     },
     skills:{
       type: String,
@@ -80,29 +58,47 @@ const profileSchema = new Schema(
       type: String,
       required: [true,"Please insert interests"]
     },
+    jobType:{
+      type: String,
+      required: [true,"Please select a job type"]
+    },
     linkedin:{
       type: String,
-      required: [true,"Please insert linkedin"]
     },
     portofolio:{
       type: String,
-      required: [true,"Please insert portofolio"]
+    },
+    phoneNumber:{
+      type: String,
+      required: [true,"Please insert phone number"]
+    },
+    email:{
+      type: String,
+      required: [true,"Please insert a email"],
+      validate:{
+        validator: validator.isEmail,
+        message: '{VALUE} is not a valid email',
+        isAsync: false
+      }
     },
     userId: {
       type: Schema.Types.ObjectId,
       ref: "User",
+    },
+    createdAt: {
+      type: Date,
     }
   }
 )
 export const models = [
   {
-    name: "Snippet",
-    schema: snippetSchema,
-    collection: "snippets",
-  },
-  {
     name: "User",
     schema: userSchema,
     collection: "users",
+  },
+  {
+    name: "Profile",
+    schema: profileSchema,
+    collection: "profiles"
   }
 ];

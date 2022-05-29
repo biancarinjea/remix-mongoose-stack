@@ -4,7 +4,7 @@ import { getSession, commitSession } from "./session.js";
 import connectDb from "~/db/connectDb.server";
 import bcrypt from "bcryptjs";
 import img from "~/assets/register_img.png";
-//import CatchBoundary from "~/components/CatchBoundary";
+
 
 
 export async function action({ request }) {
@@ -26,7 +26,7 @@ export async function action({ request }) {
 
     if (user) {
       session.set("userId", user._id);
-      return redirect("/login", {
+      return redirect("/create_profile", {
         headers: {
           "Set-Cookie": await commitSession(session),
         },
@@ -46,21 +46,12 @@ export async function action({ request }) {
   }
 }
 
-export async function loader({ request }) {
-  const session = await getSession(request.headers.get("Cookie"));
-  const db = await connectDb();
-  return json({
-    userId: await db.models.User.findById(session.get("userId")),
-  });
-}
 
 export default function Register() {
-  const { userId } = useLoaderData();
   const actionData = useActionData();
 
   return (
     <div className="w-full p-8 rounded bg-white">
-      {!userId ? (
          <><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link><div className="mb-4 pb-4 border-b flex justify-between">
          <img src={img} alt="img"></img>
          <div className="registerLayout">
@@ -93,17 +84,6 @@ export default function Register() {
            </Form>
          </div>
        </div></>
-      ) : (
-        <>
-          <h1 className="text-xl font-bold mb-4 pb-4 border-b">
-            Welcome, {userId.username}!
-          </h1>
-
-          <Form method="post" action="/logout">
-            <button type="submit">Log out</button>
-          </Form>
-        </>
-      )}
     </div>
   );
 }
@@ -125,4 +105,3 @@ export function CatchBoundary() {
   );
 }
 
-//export { CatchBoundary };

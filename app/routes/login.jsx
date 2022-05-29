@@ -15,15 +15,25 @@ export async function action({ request }) {
   const user = await db.models.User.findOne({
     username,
   });
-
   // comparing the password input to hashed password in the database
   if (await bcrypt.compare(password, user.password)) {
     session.set("userId", user._id);
-    return redirect("/create_profile", {
-      headers: {
-        "Set-Cookie": await commitSession(session),
-      },
-    });
+    const profile = await db.models.Profile.findOne({
+      userId: session.get("userId")
+    })
+    if(!profile){
+      return redirect("/create_profile", {
+        headers: {
+          "Set-Cookie": await commitSession(session),
+        },
+      });
+    }else{
+      return redirect(`/profileView/${profile._id}`, {
+        headers: {
+          "Set-Cookie": await commitSession(session),
+        },
+      });
+    }
   } else {
     return json(
       { error: "User not found or password didn't match" },
