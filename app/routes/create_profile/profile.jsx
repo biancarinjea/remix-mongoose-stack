@@ -58,11 +58,7 @@ export default function Profile(){
     const actionData = useActionData();
     return(
         <div>
-              <div class="input-container" style={
-                   {
-                       margin:"3%"
-                   }
-               }>
+              <div class="input-container" style={{width:"65%",marginLeft:"22%"}}>
                    <img src={user} alt="img" style={
                        {
                        width:"2%",
@@ -70,46 +66,49 @@ export default function Profile(){
                        marginRight:"2%"
                        }
                    }></img>
+                   <div>
                    <i style={
                    {
                        marginTop:"0.3%"
                    }}>CREATE PROFILE</i>
+                   <div className="border" style={{width:"500px"}}></div>
+                   </div>
                </div>
                <Form method="post">
-                   <div className="profile">
-                       <input type="text" placeholder="Profile picture(required)" className="profileInput" name="profilePicture" ></input>
+                   <div className="insertProfile">
+                       <input type="text" placeholder="Profile picture(required)" className="insertField" name="profilePicture" ></input>
                        <br></br>
-                       <input type="text" placeholder="Full Name(required)" className="profileInput" name="fullname" ></input>
+                       <input type="text" placeholder="Full Name(required)" className="insertField" name="fullname" ></input>
                        <br></br>
-                       <input type="number" placeholder="Age(required)" className="profileInput" name="age" min="18" max="65" style={
+                       <input type="number" placeholder="Age(required)" className="insertField" name="age" min="18" max="65" style={
                            {
                                width:"39%"
                            }
                        }></input>
                         <br></br>
-                         <input type="text" placeholder="Location(required)" className="profileInput" name="location"></input>
-                       <textarea placeholder="Description(required)" className="profileInput" style={{
+                         <input type="text" placeholder="Location(required)" className="insertField" name="location"></input>
+                       <textarea placeholder="Description(required)" className="insertField" style={{
                            width:"100%",
                            height:"100px",
                            padding:"15px"
                        }} name="description"></textarea>
-                       <input type="text" placeholder="Skills(required)" className="profileInput" name="skills"></input>
+                       <input type="text" placeholder="Skills(required)" className="insertField" name="skills"></input>
                        <br></br>
-                       <input type="text" placeholder="Interests(required)" className="profileInput" name="interests"></input>
+                       <input type="text" placeholder="Interests(required)" className="insertField" name="interests"></input>
                        <br></br>
-                       <select id="cars" name="jobType" className="profileInput" text="test">
+                       <select id="cars" name="jobType" className="insertField" text="test">
                             <option value="" disabled selected>Looking for(required)</option>
                             <option value="internship">Internship</option>
                             <option value="job">Job</option>
                         </select>
                         <br></br>
-                       <input type="text" placeholder="LinkedIn profile (optional)" className="profileInput" name="linkedin"></input>
+                       <input type="text" placeholder="LinkedIn profile (optional)" className="insertField" name="linkedin"></input>
                        <br></br>
-                       <input type="text" placeholder="Portofolio (optional)" className="profileInput" name="portofolio"></input>
+                       <input type="text" placeholder="Portofolio (optional)" className="insertField" name="portofolio"></input>
                        <br></br>
-                       <input type="tel" placeholder="Phone number (required)" className="profileInput" name="phoneNumber"></input>
+                       <input type="tel" placeholder="Phone number (required)" className="insertField" name="phoneNumber"></input>
                        <br></br>
-                       <input type="tel" placeholder="Email address (required)" className="profileInput" name="email"></input>
+                       <input type="tel" placeholder="Email address (required)" className="insertField" name="email"></input>
                        <br></br>
                        {actionData?.error ? (
                         <p className="text-red-500 font-bold my-3">{actionData.error}</p>
@@ -124,3 +123,19 @@ export default function Profile(){
         </div>
     );
 }
+export function CatchBoundary() {
+    const caught = useCatch();
+    return (
+      <div className="w-full p-8 bg-white">
+        <div>
+          <h2>
+            <b>{caught.data}</b>
+          </h2>
+          <p>
+            This page is unavailable. Please try again when you regain
+            connectivity.
+          </p>
+        </div>
+      </div>
+    );
+  }

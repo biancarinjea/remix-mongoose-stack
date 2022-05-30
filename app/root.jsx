@@ -51,7 +51,7 @@ export default function App() {
       </head>
       <body className="bg-slate-100 text-slate-800 font-sans p-4">
         <div className="mb-4 pb-4 border-b flex justify-between">
-            <Link to="/"><img src={logo} alt="logo"></img></Link>
+            <Link to="/"><img src={logo} alt="logo" style={{width:"25%"}}></img></Link>
             {!userId ? (
                <div>
                <Link to="/register" className="register">
@@ -80,3 +80,4 @@ export default function App() {
     </html>
   );
 }
+

@@ -1,5 +1,5 @@
 import { json, redirect } from "@remix-run/node";
-import { Form, Link, useActionData, useCatch, useLoaderData } from "@remix-run/react";
+import { Form, Link, useActionData, useLoaderData } from "@remix-run/react";
 import { getSession, commitSession } from "./session.js";
 import connectDb from "~/db/connectDb.server";
 import bcrypt from "bcryptjs";
@@ -16,6 +16,7 @@ export async function action({ request }) {
     username,
   });
   // comparing the password input to hashed password in the database
+  try{
   if (await bcrypt.compare(password, user.password)) {
     session.set("userId", user._id);
     const profile = await db.models.Profile.findOne({
@@ -35,6 +36,12 @@ export async function action({ request }) {
       });
     }
   } else {
+    return json(
+      { error: "User not found or password didn't match" },
+      { status: 401 }
+    );
+  }
+  }catch(e){
     return json(
       { error: "User not found or password didn't match" },
       { status: 401 }
@@ -60,17 +67,17 @@ export async function action({ request }) {
               <h1 className="text-xl font-bold" id="registerTitle">Sign In</h1>
               <Form method="post" reloadDocument>
                 <div class="input-container">
-                  <i class="fa fa-user icon"></i>
+                  <i class="fa fa-user icon" style={{backgroundColor:"#9F97D6"}}></i>
                   <input class="input-field" type="text" placeholder="Name" name="username" />
                 </div>
 
                 <div class="input-container">
-                  <i class="fa fa-envelope icon"></i>
+                  <i class="fa fa-envelope icon" style={{backgroundColor:"#9F97D6"}}></i>
                   <input class="input-field" type="text" placeholder="Email" name="email" />
                 </div>
 
                 <div class="input-container">
-                  <i class="fa fa-key icon"></i>
+                  <i class="fa fa-key icon" style={{backgroundColor:"#9F97D6"}}></i>
                   <input class="input-field" type="password" placeholder="Password" name="password" />
                 </div>
                 {actionData?.error ? (
@@ -78,7 +85,7 @@ export async function action({ request }) {
                 ) : null}
 
                 <button
-                  className="createAccount"
+                  className="registerBtn"
                   type="submit"
                 >
                   Sign In
@@ -97,5 +104,21 @@ export async function action({ request }) {
               </>
             }
         </div>
+    );
+  }
+  export function CatchBoundary() {
+    const caught = useCatch();
+    return (
+      <div className="w-full p-8 bg-white">
+        <div>
+          <h2>
+            <b>{caught.data}</b>
+          </h2>
+          <p>
+            This page is unavailable. Please try again when you regain
+            connectivity.
+          </p>
+        </div>
+      </div>
     );
   }

@@ -64,9 +64,7 @@
   border: 2px solid dodgerblue;
 }
 .createAccount{
-  width: 30%;
-  border-radius: 12px;
-  background-color: dodgerblue;
+  width: 20%;
  border: none;
  color: #ffffff;
  padding-left: 10px;
@@ -77,16 +75,19 @@
  display: block;
  font-size: 16px; 
  margin: 0 auto;
+ background: rgba(159, 151, 214, 0.6);
+ border-radius: 50px;
  
 }
 .img{
-width: 20%;
-height: 20%;
+width: 25%;
+height: 25%;
 }
 .profile{
 width:40%;
 padding: 10px;
 margin: 5% auto;
+
 }
 .profileInput{
 margin-top: 5%;
@@ -113,7 +114,20 @@ border-radius: 5%;
 width:40%;
 padding: 10px;
 margin: 5% auto;
-background-color: #969FFF;
+background-color: #9F97D6;
+background: rgba(159, 151, 214, 0.17);
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.chenarCreateProfile{
+border-radius: 5%;
+width:80%;
+height: 30%;
+padding: 10px;
+margin-top: 10%;
+margin-right:70%;
+background-color: #9F97D6;
+background: rgba(159, 151, 214, 0.17);
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .btn-group button {
 margin-top: 2%;
@@ -125,9 +139,11 @@ float: right; /* Float the buttons side by side */
 }
 .cardProfile{
 border-radius: 15px;
-margin-left: 1%;
+margin: 0 auto;
 margin-top: 5%;
 background-color: #9F97D6;
+background: rgba(159, 151, 214, 0.17);
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 width: 60%;
 }
 .description{
@@ -140,11 +156,112 @@ border-left: 1px solid white;
 .profilePicture {
 width: 100px;
 height: 100px;
-border-radius: 50%;
-float: right;
+border-radius: 30%;
 }
 .arrow{
 width:5%;
 height: 5%;
-margin-top: 15%;
+margin-top: 20%;
+}
+.chenar{
+position: absolute;
+width: 60%;
+height: 20%;
+left: 30%;
+top: 20%;
+background-color: #9F97D6;
+background: rgba(159, 151, 214, 0.17);
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.text{
+position: absolute;
+font-family: 'Inconsolata';
+font-style: normal;
+font-weight: 400;
+font-size: 200%;
+line-height: 42px;
+text-align: center ;
+color: #000000;
+left: 25%;
+top: 25%;
+}
+.subText{
+position: absolute;
+width: 50%;
+height: 20%;
+left: 36%;
+top: 33%;
+
+font-family: 'Inconsolata';
+font-style: normal;
+font-weight: 300;
+font-size: 150%;
+line-height: 25px;
+text-align: center;
+
+color: #000000;
+}
+.lookingFor{
+width: 20%;
+height: 49px;
+margin-left: 5%;
+background-color: #ffffff;
+}
+.careerField{
+width: 20%;
+height: 49px;
+margin-left: 2%;
+background-color: #ffffff;
+box-sizing: border-box;
+border: 3px solid #ccc;
+}
+.insertField{
+width: 60%;
+height: 49px;
+margin-left: 2%;
+background-color: #ffffff;
+padding-left: 2%;
+margin-top: 2%;
+}
+::placeholder{
+color: #000000;
+}
+.border{
+width: 200px;
+height: 0px;
+border: 1px solid #000000;
+}
+.textCreateProfile{
+font-family: 'Sansation';
+font-style: normal;
+font-weight: 300;
+font-size: 20px;
+line-height: 45px;
+text-align: center;
+margin: 0 auto;
+}
+.registerBtn{
+width: 30%;
+border: none;
+color: #ffffff;
+padding-left: 10px;
+padding-right: 10px;
+padding-top: 5px;
+padding-bottom: 5px;
+text-decoration: none;
+display: block;
+font-size: 16px; 
+margin: 0 auto;
+background-color: #7D36D8;
+border-radius: 50px;
+}
+.insertProfile{
+border-radius: 5%;
+width:40%;
+padding: 10px;
+margin-top: 5%;
+margin-left: 23%;
+background-color: #9F97D6;
+background: rgba(159, 151, 214, 0.17);
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }

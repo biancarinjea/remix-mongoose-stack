@@ -1,7 +1,7 @@
 import { redirect } from "@remix-run/node";
 import { useCatch } from "@remix-run/react";
 import { destroySession, getSession } from "./session.js";
-
+//import CatchBoundary from "~/components/CatchBoundary";
 
 export async function action({ request }) {
   const session = await getSession(request.headers.get("Cookie"));
@@ -33,4 +33,3 @@ export function CatchBoundary() {
     </div>
   );
 }
-

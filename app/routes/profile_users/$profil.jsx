@@ -1,64 +1,35 @@
-import { useLoaderData, useCatch,Form} from "@remix-run/react";
-import { json, redirect } from "@remix-run/node";
+import { useLoaderData} from "@remix-run/react";
+import { json } from "@remix-run/node";
 import connectDb from "~/db/connectDb.server.js";
-import { getSession } from "~/routes/session.js";
 import leftArrow from "~/assets/leftArrow.png";
 
-
-export async function action({request, params}){
-  const form = await request.formData();
-  const profile = params.profileId;
-  const db = await connectDb();
-  if(form.get("_method") === "delete"){
-    try {
-      await db.models.Profile.findByIdAndDelete({
-        _id: profile,
-      });
-      return redirect("/create_profile");
-    } catch (error) {
-      return json(
-        { errors: error.errors, values: Object.fromEntries(form) },
-        { status: 400 }
-      );
-    }
-  }else if(form.get("_method") === "edit"){
-    return redirect(`/edit/${profile}`);
-  }
-}
 export async function loader({ params,request}) {
-    const session = await getSession(request.headers.get("Cookie"));
       const db = await connectDb();
-      const profile = await db.models.Profile.findById(params.profileId);
+      const profile = await db.models.Profile.findById(params.profil);
       if (!profile) {
-        throw new Response(`Couldn't find book with id ${params.profileId}`, {
+        throw new Response(`Couldn't find book with id ${params.profil}`, {
           status: 404,
         });
       }
-      if(profile.userId == session.get("userId"))
-         return json(profile);
-      return redirect("/register");
+      return json(profile);
   }
 
   export default function ProfilePage() {
     const profile = useLoaderData();
     let skills;
     let interests;
-    let job=String(profile.jobType);
-    let jobType = job.charAt(0).toUpperCase() + job.slice(1);
     if(profile){
       skills = profile.skills.split(",");
       interests = profile.interests.split(",");
     }
     return (
         <>
-           <div  style={{marginLeft:"30%"}}><b style={{fontSize:"20px"}}>My Profile</b></div>
-          <div className="profileLayout">
+         <div className="profileLayout">
               <img  src={profile.profilePicture} className="profilePicture"></img>
-              <h1 className="text-2xl font-bold ">{profile.fullname}</h1>
+              <h1 className="text-2xl font-bold mb-4">{profile.fullname}</h1>
           <i>{profile.location}, {profile.age} years old</i>
           <br></br>
-          <br></br>
-          <b>Looking for: <i style={{color:"#a31aff"}}>{jobType}</i></b>
+          <b>Looking for: <i style={{color:"#a31aff"}}>{profile.jobType}</i></b>
           <br></br>
           <i>{profile.description}</i>
           <div className="mb-4 pb-4 border-b flex justify-between" style={{marginTop:"20%"}}>
@@ -110,28 +81,6 @@ export async function loader({ params,request}) {
             <button onClick={()=>{history.back()}}><img src={leftArrow}></img></button>
             <i>Created at {profile.createdAt}</i>
           </div>
-             <div className="btn-group">
-             <Form method="post">
-             <button
-                     className="createAccount"
-                      type="submit"
-                      name="_method"
-                      value="delete"
-                    >
-                 DELETE
-                </button>
-             </Form>
-             <Form method="post" >
-             <button
-                      className="createAccount"
-                      type="submit"
-                      name="_method"
-                      value="edit"
-                    >
-                 EDIT
-                </button>
-             </Form>
-             </div>
           </div>
         </>   
     );

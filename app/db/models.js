@@ -48,7 +48,7 @@ const profileSchema = new Schema(
     description: {
       type: String,
       required: [true,"Please insert a description"],
-      maxLength:255
+      maxLength:1000
     },
     skills:{
       type: String,

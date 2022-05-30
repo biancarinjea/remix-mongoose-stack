@@ -1,0 +1,42 @@
+[
+    {"_id":"629530f665bc1320d48212ad",
+        "username":"Magnus Nielsen",
+        "password":"$2a$10$qXjUe.3ogqrB4qYDT0.0Iu7sIc5AWsWSJnNPYYrclESQkStTG8rEK",
+        "email":"magnusnielsen1@gmail.com",
+        "createdAt":1653944566598,
+        "updatedAt":1653944566598,
+        "__v":0
+    } , 
+    {"_id":"6295357b65bc1320d48212e2",
+    "username":"Josefine",
+    "password":"$2a$10$RUDPTLeZqe7xZODelQkRC.xiOvHqmQS6fNrkSsZ2RTnT1Baix.QUe",
+    "email":"josefineolufsen@gmail.com",
+    "createdAt":1653945723892,
+    "updatedAt":1653945723892,
+    "__v":0   
+    },
+    {"_id":"62953d4a65bc1320d482134b",
+    "username":"John",
+    "password":"$2a$10$dDihN.9hv/3nK181kaRmieg1HQQ5JeGHPhd14QK3XbELbt9Syun/u",
+    "email":"johnchristensen@gmail.com",
+    "createdAt":653947722907,
+    "updatedAt":1653947722907,
+    "__v":0
+} , 
+{"_id":"62953f6265bc1320d482136a",
+"username":"Anna",
+"password":"$2a$10$Hr9Wi85rh8px3jzpjWtz1eYd4/k9g0SSgPCpJpAZCPMOxa7oatJcu",
+"email":"annaolin@gmail.com",
+"createdAt":1653948258530,
+"updatedAt":653948258530,
+"__v":0
+} , 
+{"_id":"629540df65bc1320d4821377",
+"username":"Cristina",
+"password":"$2a$10$uklRLsYm4PJHU26mJIG1R.j/SpcF2nllo/28JfH/uzVTW7WJIOjgu",
+"email":"cristinaianc@gmail.com",
+"createdAt":1653948639295,
+"updatedAt":1653948639295,
+"__v":0
+}
+]

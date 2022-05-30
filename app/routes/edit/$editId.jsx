@@ -5,6 +5,7 @@ import { getSession } from "~/routes/session.js";
 
 export async function action({ request, params }) {
     const form = await request.formData();
+    let {_action, ... values} = Object.fromEntries(form)
     const db = await connectDb();
     const editId = params.editId;
     const description = form.get("description");
@@ -18,38 +19,41 @@ export async function action({ request, params }) {
     const jobType = form.get("jobType");
     const phoneNumber = form.get("phoneNumber");
     const email = form.get("email");
-    try {
-      const editProfile = await db.models.Profile.findByIdAndUpdate(
-        editId,
-        {
-            email:email,
-            phoneNumber:phoneNumber,
-            jobType:jobType,
-            location:location,
-            age:age,
-            fullname: fullname,
-            description: description,
-            skills: skills,
-            interests: interests,
-            linkedin: linkedin,
-            portofolio: portofolio,
-        },
-        { new: true }
-      );
-  return redirect(`/profileView/${editProfile._id}`);
-    } catch (error) {
-      return json(
-        { errors: error.errors, values: Object.fromEntries(form) },
-        { status: 400 }
-      );
+    const profilePicture = form.get("profilePicture")
+    if(_action === "Save"){
+      try {
+        const editProfile = await db.models.Profile.findByIdAndUpdate(
+          editId,
+          {
+              email:email,
+              phoneNumber:phoneNumber,
+              jobType:jobType,
+              location:location,
+              age:age,
+              fullname: fullname,
+              description: description,
+              skills: skills,
+              interests: interests,
+              linkedin: linkedin,
+              portofolio: portofolio,
+              profilePicture:profilePicture
+          },
+          { new: true }
+        );
+    return redirect(`/profileView/${editProfile._id}`);
+      } catch (error) {
+        return json(
+          { errors: error.errors, values: Object.fromEntries(form) },
+          { status: 400 }
+        );
+      }
     }
   }
-
 export async function loader({ params,request }) {
     const session = await getSession(request.headers.get("Cookie"));
-    if(session.get("userId")){
-        const db = await connectDb();
-        const profile = await db.models.Profile.findById(params.editId);
+    const db = await connectDb();
+    const profile = await db.models.Profile.findById(params.editId);
+    if(session.get("userId")==profile.userId){
         if (!profile) {
         throw new Response(`Couldn't find snippet with id ${params.editId}`, {
             status: 404,
@@ -64,47 +68,63 @@ export default function EditProfilePage(){
     return(
         <>
              <Form method="post">
-                   <div className="profile">
-                       <input type="text" placeholder="Full Name(required)" className="profileInput" name="fullname" defaultValue={profile.fullname}></input>
+             <div className="insertProfile">
+                       <input type="text" placeholder="Profile picture(required)" className="insertField" name="profilePicture" defaultValue={profile.profilePicture}></input>
                        <br></br>
-                       <input type="number" placeholder="Age(required)" className="profileInput" name="age" min="18" max="65" style={
+                       <input type="text" placeholder="Full Name(required)" className="insertField" name="fullname" defaultValue={profile.fullname}></input>
+                       <br></br>
+                       <input type="number" placeholder="Age(required)" defaultValue={profile.age} className="insertField" name="age" min="18" max="65" style={
                            {
                                width:"39%"
                            }
-                       } defaultValue={profile.age}></input>
+                       }></input>
                         <br></br>
-                         <input type="text" placeholder="Location(required)" className="profileInput" name="location" defaultValue={profile.location}></input>
-                       <textarea placeholder="Description(required)" className="profileInput" style={{
+                         <input type="text" placeholder="Location(required)" className="insertField" defaultValue={profile.location} name="location"></input>
+                       <textarea placeholder="Description(required)" className="insertField" defaultValue={profile.description} style={{
                            width:"100%",
                            height:"100px",
                            padding:"15px"
-                       }} name="description" defaultValue={profile.description}></textarea>
-                       <input type="text" placeholder="Skills(required)" className="profileInput" name="skills" defaultValue={profile.skills}></input>
+                       }} name="description"></textarea>
+                       <input type="text" placeholder="Skills(required)" defaultValue={profile.skills} className="insertField" name="skills"></input>
                        <br></br>
-                       <input type="text" placeholder="Interests(required)" className="profileInput" name="interests" defaultValue={profile.interests}></input>
+                       <input type="text" placeholder="Interests(required)" className="insertField" defaultValue={profile.interests} name="interests"></input>
                        <br></br>
-                       <select id="cars" name="jobType" className="profileInput" text="test" defaultValue={profile.jobType}>
+                       <select id="cars" name="jobType" className="insertField" defaultValue={profile.jobType} text="test">
                             <option value="" disabled selected>Looking for(required)</option>
                             <option value="internship">Internship</option>
                             <option value="job">Job</option>
                         </select>
                         <br></br>
-                       <input type="text" placeholder="LinkedIn profile (optional)" className="profileInput" name="linkedin" defaultValue={profile.linkedin}></input>
+                       <input type="text" placeholder="LinkedIn profile (optional)" defaultValue={profile.linkedin} className="insertField" name="linkedin"></input>
                        <br></br>
-                       <input type="text" placeholder="Portofolio (optional)" className="profileInput" name="portofolio" defaultValue={profile.portofolio}></input>
+                       <input type="text" placeholder="Portofolio (optional)" defaultValue={profile.portofolio} className="insertField" name="portofolio"></input>
                        <br></br>
-                       <input type="tel" placeholder="Phone number (required)" className="profileInput" name="phoneNumber" defaultValue={profile.phoneNumber}></input>
+                       <input type="tel" placeholder="Phone number (required)" defaultValue={profile.phoneNumber} className="insertField" name="phoneNumber"></input>
                        <br></br>
-                       <input type="tel" placeholder="Email address (required)" className="profileInput" name="email" defaultValue={profile.email}></input>
+                       <input type="tel" placeholder="Email address (required)" defaultValue={profile.email} className="insertField" name="email"></input>
                        <br></br>
-                       <button
-                       className="createProfile"
-                       type="submit">
-                         Edit
-                       </button>
+                       <div className="btn-group" style={{marginTop:"2%"}}>
+                          <button className="createProfile" type="submit" name = "_action" value="Save">Save</button>
+                         <button className="createProfile" type="submit" name = "_action" value="Discard"><a href={"/profileView/"+profile._id}>Discard</a></button>
+                       </div>
                    </div>
                </Form>
-              
         </>
     );
+}
+export function CatchBoundary() {
+  const caught = useCatch();
+  return (
+    <div className="w-full p-8 bg-white">
+      <div>
+        <h2>
+          <b>{caught.data}</b>
+        </h2>
+        <p>
+          This page is unavailable. Please try again when you regain
+          connectivity.
+        </p>
+      </div>
+    </div>
+  );
 }

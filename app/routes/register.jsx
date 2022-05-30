@@ -1,10 +1,9 @@
 import { json, redirect } from "@remix-run/node";
-import { Form, Link, useActionData, useCatch, useLoaderData } from "@remix-run/react";
+import { Form, useActionData, useCatch } from "@remix-run/react";
 import { getSession, commitSession } from "./session.js";
 import connectDb from "~/db/connectDb.server";
 import bcrypt from "bcryptjs";
 import img from "~/assets/register_img.png";
-
 
 
 export async function action({ request }) {
@@ -58,17 +57,17 @@ export default function Register() {
            <h1 className="text-xl font-bold" id="registerTitle">Register</h1>
            <Form method="post" reloadDocument>
              <div class="input-container">
-               <i class="fa fa-user icon"></i>
+               <i class="fa fa-user icon"  style={{backgroundColor:"#9F97D6"}}></i>
                <input class="input-field" type="text" placeholder="Name" name="username" />
              </div>
 
              <div class="input-container">
-               <i class="fa fa-envelope icon"></i>
+               <i class="fa fa-envelope icon"  style={{backgroundColor:"#9F97D6"}}></i>
                <input class="input-field" type="text" placeholder="Email" name="email" />
              </div>
 
              <div class="input-container">
-               <i class="fa fa-key icon"></i>
+               <i class="fa fa-key icon" style={{backgroundColor:"#9F97D6"}}></i>
                <input class="input-field" type="password" placeholder="Password" name="password" />
              </div>
              {actionData?.error ? (
@@ -76,7 +75,7 @@ export default function Register() {
              ) : null}
 
              <button
-               className="createAccount"
+               className="registerBtn"
                type="submit"
              >
                Create Account
@@ -104,4 +103,3 @@ export function CatchBoundary() {
     </div>
   );
 }
-

@@ -1,8 +1,9 @@
 import { json, redirect } from "@remix-run/node";
-import { Form, Link, Outlet, useActionData, useCatch, useLoaderData } from "@remix-run/react";
+import {  Link, Outlet } from "@remix-run/react";
 import connectDb from "~/db/connectDb.server";
-import img from "~/assets/img.png";
-import { getSession, commitSession } from "./session.js";
+import img from "~/assets/img.jpeg";
+import { getSession } from "./session.js";
+import arrow from "~/assets/rightArrow.png";
 export async function loader({ request }) {
     const session = await getSession(request.headers.get("Cookie"));
     const db = await connectDb();
@@ -22,16 +23,21 @@ export default function CreateProfile() {
                    }
                }>
                    <img src={img} alt="img" className="img"></img>
-                   <div>
-                        <div className="profile" style={{background:"#9F97D6"}}>
-                            <i >Thank you!
-
-Thanks for signing up. Welcome to our community. We are happy to have you on board.</i>
+                   <div >
+                        <div className="chenarCreateProfile">
+                            <i className="textCreateProfile">Thank you! Thanks for signing up. Welcome to our community. We are happy to have you on board.</i>
                         </div>
-                        <Link to={'profile'} activeClassName="active" className="createAccount">Create your profile</Link>
+                        <button
+                            className="createProfile"
+                            type="submit"
+                            style={{
+                                marginTop:"5%",
+                                marginLeft:"20%",marginTop:"5%"
+                            }}
+                            >
+                           <Link to={'profile'} activeClassName="active"><i>Create your profile</i></Link>
+                        </button>
                    </div>
-    
-                  
                </div>
                <div className="w-full">
                     <Outlet />
