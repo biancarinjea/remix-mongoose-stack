@@ -24,7 +24,7 @@ export async function loader({ params,request }) {
       profiles = await db.models.Profile.find({
         userId: {"$ne":session.get("userId")},
         jobType:p[0],
-        skills: { $regex: new RegExp(p[1], "g") }
+        skills: { $regex: new RegExp(p[1], "i") }
 
  }
  ).sort({fullname:1});

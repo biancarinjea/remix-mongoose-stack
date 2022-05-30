@@ -8,7 +8,7 @@ import { LiveReload,Form,
     const jobType = form.get("jobType");
     const skills = form.get("skills");
     const sortType = form.get("sort");
-     return redirect(`search/${jobType}%20${skills}%20${sortType}`);
+     return redirect(`homepage/${jobType}%20${skills}%20${sortType}`);
   }
   
   export default function Search() {
