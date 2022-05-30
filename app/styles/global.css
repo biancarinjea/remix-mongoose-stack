@@ -116,6 +116,8 @@ margin: 5% auto;
 background-color: #969FFF;
 }
 .btn-group button {
+margin-top: 2%;
+margin-left: 2%;
 color: white; /* White text */
  /* Some padding */
 cursor: pointer; /* Pointer/hand icon */
@@ -140,4 +142,9 @@ width: 100px;
 height: 100px;
 border-radius: 50%;
 float: right;
+}
+.arrow{
+width:5%;
+height: 5%;
+margin-top: 15%;
 }
