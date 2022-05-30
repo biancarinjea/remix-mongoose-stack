@@ -43,26 +43,27 @@ export default function Search(){
         <>
           {
             profiles.map((profile)=>{
+              const desc = String(profile.description);
               return(
                   <div className="cardProfile">
+                    <img  src={profile.profilePicture} className="profilePicture" alt="Avatar"></img>
                     <div className="mb-4 pb-4 border-b flex justify-between">
-                      <img  src={profile.profilePicture} className="profilePicture" alt="Avatar"></img>
-                      <div style={{marginTop:"1%"}}>
+                      <div style={{marginTop:"1%",width:"100%"}}>
                         <b>{profile.fullname}</b>
                         <br></br>
                         <i>{profile.location}, {profile.age} years old</i>
                         <br></br>
                         <br></br>
-                        <b>Skills:</b><b style={{marginLeft:"10px",color:"#202979"}}>{profile.skills}</b>
+                        <b>Skills:</b><b style={{color:"#202979"}}>{profile.skills}</b>
                         <br></br>
                         <b>Interests:</b><b style={{marginLeft:"10px",color:"#202979"}}>{profile.interests}</b>
                         <br></br>
                         <b>Looking for:</b><b style={{marginLeft:"10px",color:"#202979"}}>{profile.jobType}</b>
                         <h1 style={{fontSize:"10px",textAlign:"left",paddingTop:"20%"}}>{profile.createdAt}</h1>
                       </div>
-                      <div class="vl"></div>
-                      <h1 style={{marginRight:"20%",marginTop:"3%"}}>{profile.description}</h1>
-                      <Link to={`/profile_users/${profile._id}`} className="arrow"><img src={arrow}></img></Link>
+                      <div class="vl" style={{marginLeft:"10%"}}></div>
+                      <h1 style={{marginLeft:"10%",marginTop:"3%"}}>{desc.substring(0,250)}</h1>
+                      <Link to={`/profile_users/${profile._id}`} className="arrow"><img src={arrow} style={{width:"200%",height:"200%"}}></img></Link>
                     </div>
                   </div>
               );
