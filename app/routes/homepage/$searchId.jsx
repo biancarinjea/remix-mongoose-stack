@@ -24,7 +24,7 @@ export async function loader({ params,request }) {
       profiles = await db.models.Profile.find({
         userId: {"$ne":session.get("userId")},
         jobType:p[0],
-        skills: { $regex: new RegExp(p[1], "i") }
+        skills: { $regex: new RegExp(p[1], "g") }
 
  }
  ).sort({fullname:1});
@@ -63,7 +63,7 @@ export default function Search(){
                       </div>
                       <div class="vl" style={{marginLeft:"10%"}}></div>
                       <h1 style={{marginLeft:"10%",marginTop:"3%"}}>{desc.substring(0,250)}</h1>
-                      <Link to={`/profile_users/${profile._id}`} className="arrow"><img src={arrow} style={{width:"200%",height:"200%"}}></img></Link>
+                      <Link to={`/profile_users/${profile._id}`} className="arrow"><img src={arrow} style={{maxWidth:"50px",maxHeight:"50px"}}></img></Link>
                     </div>
                   </div>
               );
