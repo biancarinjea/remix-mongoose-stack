@@ -21,6 +21,57 @@ export async function action({request}){
     const phoneNumber = form.get("phoneNumber");
     const email = form.get("email");
     const profilePicture = form.get("profilePicture");
+    let err="";
+    if(profilePicture?.length == 0){
+        err+="Please insert profile picture,";
+    }else{
+        err+=",";
+    }
+    if(description?.length == 0){
+        err+="Please insert description,";
+    }else{
+        err+=",";
+    }
+    if(skills?.length == 0){
+        err+="Please insert skills,";
+    }else{
+        err+=",";
+    }
+    if(interests?.length == 0){
+        err+="Please insert interests,";
+    }else{
+        err+=",";
+    }
+    if(fullname?.length == 0){
+        err+="Please insert fullname,";
+    }else{
+        err+=",";
+    }
+    if(age?.length == 0){
+        err+="Please insert age,";
+    }else{
+        err+=",";
+    }
+    if(location?.length == 0){
+        err+="Please insert location,";
+    }else{
+        err+=",";
+    }
+    if(jobType == "Looking for(required)"){
+        err+="Please insert profile jobType,";
+    }else{
+        err+=",";
+    }
+    if(phoneNumber?.length == 0){
+        err+="Please insert phoneNumber,";
+    }else{
+        err+=",";
+    }
+    if(email?.length == 0){
+        err+="Please insert email,";
+    }else{
+        err+=",";
+    }
     try{
         const profile = await db.models.Profile.create({
             email:email,
@@ -47,8 +98,7 @@ export async function action({request}){
         return json(
             {
               error:
-                error.message ??
-                error.errors?.map((error) => error.message).join(", "),
+               err
             },
             { status: 400 }
           );
@@ -56,6 +106,7 @@ export async function action({request}){
 }
 export default function Profile(){
     const actionData = useActionData();
+    const err = actionData?.error.split(",");
     return(
         <div>
               <div class="input-container" style={{width:"65%",marginLeft:"22%"}}>
@@ -77,41 +128,60 @@ export default function Profile(){
                <Form method="post">
                    <div className="insertProfile">
                        <input type="text" placeholder="Profile picture(required)" className="insertField" name="profilePicture" ></input>
-                       <br></br>
+                       {err?.at(0) == "Please insert profile picture" ? (
+                        <p className="text-red-500 font-bold my-3">{err[0]}</p>
+                        ) : null}
                        <input type="text" placeholder="Full Name(required)" className="insertField" name="fullname" ></input>
-                       <br></br>
+                       {err?.at(4) == "Please insert fullname" ? (
+                        <p className="text-red-500 font-bold my-3">{err[4]}</p>
+                        ) : null}
                        <input type="number" placeholder="Age(required)" className="insertField" name="age" min="18" max="65" style={
                            {
                                width:"39%"
                            }
                        }></input>
-                        <br></br>
+                         {err?.at(5) == "Please insert age" ? (
+                        <p className="text-red-500 font-bold my-3">{err[5]}</p>
+                        ) : null}
                          <input type="text" placeholder="Location(required)" className="insertField" name="location"></input>
+                         {err?.at(6) == "Please insert location" ? (
+                        <p className="text-red-500 font-bold my-3">{err[6]}</p>
+                        ) : null}
                        <textarea placeholder="Description(required)" className="insertField" style={{
                            width:"100%",
                            height:"100px",
                            padding:"15px"
                        }} name="description"></textarea>
+                       {err?.at(1) == "Please insert description" ? (
+                        <p className="text-red-500 font-bold my-3">{err[1]}</p>
+                        ) : null}
                        <input type="text" placeholder="Skills(required)" className="insertField" name="skills"></input>
-                       <br></br>
-                       <input type="text" placeholder="Interests(required)" className="insertField" name="interests"></input>
-                       <br></br>
+                       {err?.at(2) == "Please insert skills" ? (
+                        <p className="text-red-500 font-bold my-3">{err[2]}</p>
+                        ) : null}
+                       <input type="text" placeholder="Interests(required)" className="insertField" name="interests"></input>   
+                       {err?.at(3) == "Please insert interests" ? (
+                        <p className="text-red-500 font-bold my-3">{err[3]}</p>
+                        ) : null}
                        <select id="cars" name="jobType" className="insertField" text="test">
                             <option value="" disabled selected>Looking for(required)</option>
                             <option value="internship">Internship</option>
                             <option value="job">Job</option>
                         </select>
-                        <br></br>
+                        {err?.at(7) == "Please insert jobType" ? (
+                        <p className="text-red-500 font-bold my-3">{err[7]}</p>
+                        ) : null}
                        <input type="text" placeholder="LinkedIn profile (optional)" className="insertField" name="linkedin"></input>
                        <br></br>
                        <input type="text" placeholder="Portofolio (optional)" className="insertField" name="portofolio"></input>
                        <br></br>
                        <input type="tel" placeholder="Phone number (required)" className="insertField" name="phoneNumber"></input>
-                       <br></br>
+                       {err?.at(8) == "Please insert phoneNumber" ? (
+                        <p className="text-red-500 font-bold my-3">{err[8]}</p>
+                        ) : null}
                        <input type="tel" placeholder="Email address (required)" className="insertField" name="email"></input>
-                       <br></br>
-                       {actionData?.error ? (
-                        <p className="text-red-500 font-bold my-3">{actionData.error}</p>
+                       {err?.at(9) == "Please insert email" ? (
+                        <p className="text-red-500 font-bold my-3">{err[9]}</p>
                         ) : null}
                        <button
                        className="createProfile"
