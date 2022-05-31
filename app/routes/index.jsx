@@ -4,10 +4,12 @@ import connectDb from "~/db/connectDb.server";
 export async function loader({request}) {
   const session = await getSession(request.headers.get("Cookie"));
   if(!session.get("userId"))
-    return redirect("/homepage");
+    return redirect("/search");
   const db = await connectDb();
   const profile = await db.models.Profile.findOne({userId:session.get("userId")});
-  return redirect(`/profileView/${profile._id}`);
+  if(profile)
+    return redirect(`/profileView/${profile._id}`);
+  return redirect('/create_profile');
 }
 export function CatchBoundary() {
   const caught = useCatch();
