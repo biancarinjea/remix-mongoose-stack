@@ -62,7 +62,7 @@ export default function Search(){
                         <h1 style={{fontSize:"10px",textAlign:"left",paddingTop:"20%"}}>{profile.createdAt}</h1>
                       </div>
                       <div class="vl" style={{marginLeft:"10%"}}></div>
-                      <h1 style={{marginLeft:"10%",marginTop:"3%"}}>{desc.substring(0,250)}</h1>
+                      <h1 style={{marginLeft:"10%",marginTop:"3%"}}>{desc.substring(0,250)}...</h1>
                       <Link to={`/profile_users/${profile._id}`} className="arrow"><img src={arrow} style={{maxWidth:"50px",maxHeight:"50px"}}></img></Link>
                     </div>
                   </div>
